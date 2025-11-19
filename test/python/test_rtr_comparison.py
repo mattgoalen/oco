@@ -4,7 +4,7 @@ import numpy as np
 import numpy.testing as npt
 import h5py
 
-from refractor.executor.testing import ComparisonExecutor
+from refractor.framework.executor.testing import ComparisonExecutor
 
 config_base_dir = os.path.join(os.path.realpath(os.path.dirname(__file__)), "../../config")
 expt_results_dir = os.path.join(os.path.realpath(os.path.dirname(__file__)), "../expected/rtr_comparison")
@@ -63,3 +63,6 @@ def test_aerosols():
     config_filename = os.path.join(config_base_dir, "rtr_comparison_aerosols.py")
     expt_results_filename = os.path.join(expt_results_dir, "rtr_expected_radiances_aerosols.h5")
     compare_fm(config_filename, expt_results_filename)
+
+test_clear()
+test_aerosols()

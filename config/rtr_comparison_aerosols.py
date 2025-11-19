@@ -2,8 +2,8 @@ import os
 
 import numpy as np
 
-from refractor.config import refractor_config
-from refractor.factory import creator, param
+from refractor.framework.config import refractor_config
+from refractor.framework.factory import creator, param
 from refractor import framework as rf
 
 from .rtr_comparison_base import rtr_comparison_base_config, initial_guess_values

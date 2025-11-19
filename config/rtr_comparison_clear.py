@@ -1,5 +1,5 @@
 import os
-from refractor.config import refractor_config
+from refractor.framework.config import refractor_config
 from .rtr_comparison_base import rtr_comparison_base_config, initial_guess_values
 
 @refractor_config

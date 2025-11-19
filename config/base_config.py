@@ -8,7 +8,8 @@ import numpy as np
 from refractor.framework.factory import creator, param
 from refractor import framework as rf
 
-absco_base_path = os.environ['ABSCO_PATH']
+# absco_base_path = os.environ['ABSCO_PATH']
+absco_base_path = os.environ['abscodir']
 
 config_dir = os.path.dirname(__file__)
 
