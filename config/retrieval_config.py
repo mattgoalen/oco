@@ -5,9 +5,13 @@ from refractor import framework as rf
 
 from oco import Level1bOco, OcoMetFile, OcoSoundingId, OcoNoiseModel
 
-from .base_config import base_config_definition, aerosol_prop_file
+import sys
+sys.path.append('.../config')
+sys.path.append('/home/mg13/Projects/oco/config')
 
-from .aerosol_met import AerosolMetPrior
+from base_config import base_config_definition, aerosol_prop_file
+
+from aerosol_met import AerosolMetPrior
 
 def oco_level1b(hdf_obj, observation_id):
     max_ms = np.array([ 7.00e20, 2.45e20, 1.25e20 ])
