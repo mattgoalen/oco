@@ -109,6 +109,12 @@ list(APPEND THIRDPARTY_LIBRARIES ${HDF5_LIBRARIES})
 include_directories(${THIRDPARTY_INCLUDES})
 
 # Find Boost
+
+# FindBoost module is removed in cmake version 3.30
+if (CMAKE_VERSION VERSION_GREATER 3.29)
+    cmake_policy(SET CMP0167 NEW)
+endif()
+
 # We want to use the Conda version if it is available, and the user hasn't
 # otherwise specified a different version
 if(NOT BOOST_ROOT AND DEFINED ENV{CONDA_PREFIX})

@@ -15,13 +15,41 @@ endif()
 # before the libs (i.e., the order is important). Otherwise this finds
 # the system python for libraries but uses conda for the interpreter, which
 # of course causes problems. This goes away if you do this in the other order.
-find_package(PythonInterp 3.0 REQUIRED)
-find_package(PythonLibs 3.0 REQUIRED)
-include_directories(${PYTHON_INCLUDE_PATH})
+
+# FindPythonInterp and FindPythonLibs have been deprecated since CMake 3.12, and have been removed since 3.27
+# Numpy has been included in FindPython since CMake 3.14.7
+if (CMAKE_VERSION VERSION_GREATER 3.14.6)
+    # Find Python and Numpy
+    cmake_policy(SET CMP0094 NEW) # sets Python3_FIND_STRATEGY=LOCATION searching in order of location for first version that satisfies
+    find_package(Python 3.0 REQUIRED COMPONENTS Interpreter Development NumPy)
+    set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
+    set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+    find_package_message(NumPy "Found NumPy: version \"${Python_NumPy_VERSION}\" ${Python_NumPy_INCLUDE_DIRS}"
+    "${Python_NumPy_INCLUDE_DIRS}${Python_NumPy_VERSION}")
+
+    # include directories
+    include_directories(${Python_INCLUDE_DIRS})
+    include_directories(${Python_NumPy_INCLUDE_DIRS})
+
+else()
+    # Find Python
+    find_package(PythonInterp 3.0 REQUIRED)
+    find_package(PythonLibs 3.0 REQUIRED)
+    # Find Numpy
+    find_package(NumPy REQUIRED)
+
+    # include directories
+    include_directories(${PYTHON_INCLUDE_PATH})
+    include_directories(${NUMPY_INCLUDE_DIRS})
+endif()
+
+# find_package(PythonInterp 3.0 REQUIRED)
+# find_package(PythonLibs 3.0 REQUIRED)
+# include_directories(${PYTHON_INCLUDE_PATH})
 
 # Find NumPy
-find_package(NumPy REQUIRED)
-include_directories(${NUMPY_INCLUDE_DIRS})
+# find_package(NumPy REQUIRED)
+# include_directories(${NUMPY_INCLUDE_DIRS})
 
 # Find SWIG
 find_package(SWIG 3.0 REQUIRED)
